@@ -385,5 +385,112 @@
       window.open(whatsappLink(WHATSAPP_NUMBER, travellerMsg), '_blank');
     });
   </script>
+  <script>
+/* ======= Robust WhatsApp link handlers ======= */
+(function(){
+  const WHATSAPP_NUMBER = '+917619328779';
+
+  // Helper: build wa.me url
+  function whatsappLink(number, text){
+    const cleaned = number.replace(/\+/g,'').replace(/\s/g,'');
+    return "https://wa.me/" + cleaned + "?text=" + text;
+  }
+
+  // Pre-fill messages
+  const bookMsg = encodeURIComponent("Hello TagGoXpress, I want to book a Same-day delivery from Mysuru to Bengaluru. Pickup address: [your address]. Item: [short description].");
+  const travellerMsg = encodeURIComponent("Hi, I want to join TagGoXpress traveller group. Name: [your name]. Route: Mysuru ↔ Bengaluru. Phone: [your phone].");
+
+  // Safe-get helper
+  function $id(id){ return document.getElementById(id) || null; }
+
+  // Elements we expect (may be null if markup changed)
+  const bookNowEl      = $id('bookNow');        // hero CTA
+  const whatsappTopEl  = $id('whatsappTop');    // header button
+  const whatsappFooterEl = $id('whatsappFooter');// footer link
+  const joinTravellerEl = $id('joinTraveller'); // hero "Join as Traveller" (card)
+  const joinNowEl       = $id('joinNow');       // traveller card "Join as Traveller" button
+  const tsubmitEl       = $id('tsubmit');       // signup button
+
+  // Fallback: opens a link in new tab/window
+  function openWa(url){
+    try{
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }catch(e){
+      // last resort: set location
+      window.location.href = url;
+    }
+  }
+
+  // Apply hrefs for graceful fallback (so right-click / copy works)
+  const bookUrl = whatsappLink(WHATSAPP_NUMBER, bookMsg);
+  const travellerUrl = whatsappLink(WHATSAPP_NUMBER, travellerMsg);
+
+  if(bookNowEl) {
+    bookNowEl.setAttribute('href', bookUrl);
+    // Add click handler to ensure it opens in a new window
+    bookNowEl.addEventListener('click', function(e){
+      // Allow normal ctrl/cmd click to work
+      if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      openWa(bookUrl);
+    });
+  }
+
+  if(whatsappTopEl){
+    whatsappTopEl.setAttribute('href', bookUrl);
+    whatsappTopEl.addEventListener('click', function(e){
+      if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      openWa(bookUrl);
+    });
+  }
+
+  if(whatsappFooterEl){
+    whatsappFooterEl.setAttribute('href', bookUrl);
+    whatsappFooterEl.addEventListener('click', function(e){
+      if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      openWa(bookUrl);
+    });
+  }
+
+  if(joinTravellerEl){
+    joinTravellerEl.setAttribute('href', travellerUrl);
+    joinTravellerEl.addEventListener('click', function(e){
+      if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      openWa(travellerUrl);
+    });
+  }
+
+  if(joinNowEl){
+    joinNowEl.setAttribute('href', travellerUrl);
+    joinNowEl.addEventListener('click', function(e){
+      if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      openWa(travellerUrl);
+    });
+  }
+
+  // Signup form button: validates and opens WA with form values
+  if(tsubmitEl){
+    tsubmitEl.addEventListener('click', function(e){
+      e.preventDefault();
+      const name  = (document.getElementById('tname') || {}).value || '';
+      const phone = (document.getElementById('tphone') || {}).value || '';
+      const route = (document.getElementById('troute') || {}).value || '';
+      if(!name.trim() || !phone.trim() || !route.trim()){
+        alert('Please enter name, phone and route to sign up.');
+        return;
+      }
+      const msg = encodeURIComponent("Traveller signup: Name: " + name.trim() + " | Phone: " + phone.trim() + " | Route: " + route.trim());
+      openWa(whatsappLink(WHATSAPP_NUMBER, msg));
+    });
+  }
+
+  // Extra: if user has JS disabled, the href fallbacks above still let them open the wa.me links.
+})();
+</script>
+
 </body>
 </html>
