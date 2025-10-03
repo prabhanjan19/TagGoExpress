@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TagGoXpress — Mysuru ⇆ Bengaluru Same-Day & Next-Day Delivery</title>
+  <meta name="description" content="TagGoXpress — Same-day and next-day parcel delivery between Mysuru and Bengaluru. Door pickup, traveller handoff, and affordable options."/>
+  <meta name="theme-color" content="#FF8C00" />
+
+  <style>
+    /* ---------- Simple reset ---------- */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html,body { height: 100%; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color:#111; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ---------- Color palette ---------- */
+    :root{
+      --orange: #FF8C00;
+      --green:  #008F3E;
+      /* BRIGHTER MUTED: Changed from #6b7280 to a lighter gray for better contrast/brightness on small text */
+      --muted:  #4a5568; 
+      --card:   #ffffff;
+      --glass:  rgba(255,255,255,0.85);
+      --maxw:   1100px;
+    }
+
+    /* ---------- Layout & Global Styles ---------- */
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 24px; }
+    
+    /* Header (Mobile First: Stack or adjust on small screens) */
+    header { 
+      display:flex; 
+      align-items:center; 
+      justify-content:space-between; 
+      gap:16px; 
+      padding:18px 0; 
+      flex-wrap: wrap; /* Allows header items to wrap on smaller screens */
+    }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .logo-mark { width:46px; height:46px; border-radius:8px; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,var(--orange),#ffb366); color:white; font-weight:700;}
+    .brand h1 { font-size:20px; letter-spacing:0.2px; }
+    nav { 
+      display:flex; 
+      gap:12px; 
+      align-items:center; 
+      /* Hide all but the WhatsApp button on small screens */
+      flex-grow: 1;
+      justify-content: flex-end;
+    }
+    nav a:not(#whatsappTop) { 
+      display: none; 
+    }
+
+    /* Typography */
+    .muted { color:var(--muted); font-size:14px; }
+    .tiny { 
+      font-size:13px; 
+      color:var(--muted); /* Uses the brighter muted color */
+      margin-top:8px; 
+    }
+
+    /* ---------- Hero ---------- */
+    .hero { 
+      background: linear-gradient(180deg, #fff 0%, #fff 60%); 
+      padding:36px 0; 
+      display:flex; 
+      gap:32px; 
+      align-items:center; 
+    }
+    .hero-grid { 
+      display:grid; 
+      grid-template-columns: 1fr; /* Default to single column for mobile */
+      gap:20px; 
+    }
+    .eyebrow { display:inline-block; background:var(--orange); color:white; padding:6px 10px; border-radius:20px; font-weight:600; font-size:13px; }
+    .headline { font-size:32px; font-weight:800; line-height:1.05; margin-top:8px; } /* Slightly larger for mobile punch */
+    .sub { color:var(--muted); margin-top:10px; font-size:16px; }
+    .cta-row { display:flex; gap:12px; margin-top:18px; flex-wrap:wrap; }
+
+    .btn { display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:10px; font-weight:700; cursor:pointer; border: none; }
+    .btn-primary { background:var(--orange); color:white; }
+    .btn-ghost { background:transparent; color:var(--orange); border:2px solid var(--orange); }
+
+    /* ---------- Cards, Steps, Grids (Mobile adjustments) ---------- */
+    .grid-3 { display:grid; gap:18px; grid-template-columns: repeat(1, 1fr); } /* Single column by default */
+    .card { background:var(--card); padding:18px; border-radius:12px; box-shadow: 0 6px 18px rgba(16,24,40,0.06); }
+    .card h3 { font-size:18px; margin-bottom:8px; } /* Slightly larger card headings */
+
+    /* How it works */
+    .steps { display:grid; gap:14px; grid-template-columns: 1fr; margin-top:10px; } /* Single column by default */
+    .step { display:flex; gap:12px; align-items:flex-start; }
+    
+    /* Signup form */
+    .form { margin-top:8px; display:flex; gap:10px; flex-wrap:wrap; }
+    .input { padding:10px 12px; border-radius:8px; border:1px solid #e6e6e9; min-width:100%; } /* Full width on mobile */
+    .form button { min-width: 100%; } /* Full width on mobile */
+
+    /* Footer */
+    footer { 
+      margin-top:36px; 
+      padding:22px 0; 
+      border-top:1px solid #eee; 
+      display:flex; 
+      justify-content:space-between; 
+      gap:16px; 
+      align-items:center; 
+      flex-wrap:wrap; /* Allows items to stack on small screens */
+      text-align: center; /* Center content when stacked */
+    }
+    footer > div {
+        flex: 1 1 100%; /* Make divs take full width on small screens */
+    }
+    .socials { display:flex; gap:12px; align-items:center; justify-content: center; } /* Center socials on small screens */
+
+    /* ---------- small helpers ---------- */
+    .badge { background:#eef6f0; color:var(--green); padding:6px 10px; border-radius:999px; font-weight:700; font-size:13px; display:inline-block; }
+    .price { font-weight:800; font-size:22px; color:var(--green); }
+    .center { text-align:center; }
+
+    /* ================================== */
+    /* ---------- Responsive Breakpoint: Tablet/Desktop (>= 600px) ---------- */
+    /* ================================== */
+    @media(min-width:600px){
+        /* Adjustments for a slightly larger screen (e.g., tablet) */
+        .container { padding: 32px; }
+        .input { min-width: auto; } /* Allow inputs to shrink */
+        .form button { min-width: auto; } /* Allow button to shrink */
+        .headline { font-size:40px; }
+        .form { justify-content: flex-start; } /* Align form left again */
+        footer > div {
+            flex: 1; /* Allow default spacing */
+            text-align: left;
+        }
+        .socials { justify-content: flex-end; }
+    }
+
+
+    /* ================================== */
+    /* ---------- Responsive Breakpoint: Desktop (>= 800px) ---------- */
+    /* ================================== */
+    @media(min-width:800px){
+      /* Revert desktop-specific styles */
+      .hero-grid { grid-template-columns: 1fr 420px; align-items:center; }
+      .grid-3 { grid-template-columns: repeat(3, 1fr); }
+      .steps { grid-template-columns: repeat(3, 1fr); }
+      
+      /* Header & Nav */
+      header { flex-wrap: nowrap; }
+      nav a:not(#whatsappTop) { 
+        display: block; /* Show navigation links */
+      }
+      nav { justify-content: flex-start; flex-grow: 0; }
+      .headline { font-size:44px; }
+    }
+    
+    /* ================================== */
+    /* ---------- Responsive Breakpoint: Large Desktop (>= 1100px) ---------- */
+    /* ================================== */
+    @media(min-width:1100px){
+        .container { padding: 24px 0; } /* Remove side padding inside max-width container */
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo-mark">TG</div>
+        <div>
+          <h1>TagGoXpress</h1>
+          <div style="font-size:12px;color:var(--muted)">Mysuru ⇆ Bengaluru • Same-Day & Next-Day</div>
+        </div>
+      </div>
+      <nav>
+        <a class="tiny" href="#services">Services</a>
+        <a class="tiny" href="#how">How it works</a>
+        <a class="tiny" href="#traveller">Travellers</a>
+        <a class="tiny" href="#faq">FAQ</a>
+        <a class="btn btn-primary" id="whatsappTop" href="#">Book on WhatsApp</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Same-Day & Next-Day</div>
+          <h2 class="headline">Delivered in hours, not days — <br/> Mysuru ⇆ Bengaluru</h2>
+          <p class="sub">We pick up from your doorstep in Mysuru and deliver to Bengaluru same day or next day. Book quickly on WhatsApp — no accounts, no queues.</p>
+
+          <div class="cta-row">
+            <a class="btn btn-primary" id="bookNow" href="#" role="button">Book Now on WhatsApp</a>
+            <a class="btn btn-ghost" href="#how" role="button">How it works</a>
+          </div>
+
+          <div style="margin-top:14px" class="muted">
+            Ideal for: cakes, medicines, books, gifts, urgent documents.
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <h3>Quick Options</h3>
+            <div class="muted">Choose the delivery option that fits you</div>
+            <div style="margin-top:12px">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+                <div><strong>Same-Day</strong><div class="muted" style="font-size:13px">Door pickup → Door drop</div></div>
+                <div class="price">₹185</div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <div><strong>Pickup → Station</strong><div class="muted" style="font-size:13px">Door pickup → Collect at station</div></div>
+                <div class="price">₹150</div>
+              </div>
+            </div>
+            <div style="margin-top:12px" class="tiny">* Prices shown are examples. Final price depends on weight & distance.</div>
+          </div>
+
+          <div style="height:18px"></div>
+
+          <div class="card center">
+            <div style="font-weight:700">Traveller? Earn ₹50–₹70 / trip</div>
+            <div class="tiny" style="margin-top:6px">Carry parcels on your regular trip and get paid for simple handovers.</div>
+            <div style="margin-top:12px">
+              <a class="btn btn-primary" id="joinTraveller" href="#traveller">Join as Traveller</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" style="margin-top:26px">
+      <div style="display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap">
+        <h2>What we do</h2>
+        <div class="badge">Door pickup | Same-day | Next-day</div>
+      </div>
+
+      <div class="grid-3" style="margin-top:18px">
+        <div class="card">
+          <h3>Door-to-Door (Same-Day)</h3>
+          <p class="muted">We pick up from your Mysuru doorstep and ensure delivery to Bengaluru within hours for urgent needs.</p>
+        </div>
+        <div class="card">
+          <h3>Door pickup → Station (Same-Day)</h3>
+          <p class="muted">We pick up from you in Mysuru and hand over to a traveller/bus. Recipient collects at Bengaluru station.</p>
+        </div>
+        <div class="card">
+          <h3>Next-Day (Speed Post / Courier)</h3>
+          <p class="muted">For non-urgent items we use India Post / trusted couriers for next-day deliveries — we handle pickup & booking.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" style="margin-top:28px">
+      <h2>How it works</h2>
+      <div class="steps">
+        <div class="step card">
+          <div style="font-weight:800; width:40px; height:40px; border-radius:8px; background:var(--orange); color:white; display:flex; align-items:center; justify-content:center">1</div>
+          <div>
+            <h3 style="margin-bottom:6px">Book on WhatsApp</h3>
+            <div class="muted">Send a message with pickup address & item details. We confirm pickup time.</div>
+          </div>
+        </div>
+
+        <div class="step card">
+          <div style="font-weight:800; width:40px; height:40px; border-radius:8px; background:var(--orange); color:white; display:flex; align-items:center; justify-content:center">2</div>
+          <div>
+            <h3 style="margin-bottom:6px">Pickup in Mysuru</h3>
+            <div class="muted">Our local rider collects the parcel, verifies, and prepares it for handover.</div>
+          </div>
+        </div>
+
+        <div class="step card">
+          <div style="font-weight:800; width:40px; height:40px; border-radius:8px; background:var(--orange); color:white; display:flex; align-items:center; justify-content:center">3</div>
+          <div>
+            <h3 style="margin-bottom:6px">Traveller / Cargo Transit</h3>
+            <div class="muted">Parcel travels via pre-booked travellers or trusted cargo services (VRL / Speed Post) depending on service selected.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px" class="muted">Final delivery is either by our Bengaluru rider (door-to-door) or by station pickup depending on chosen service.</div>
+    </section>
+
+    <section id="traveller" style="margin-top:28px">
+      <h2>Travellers — Earn While You Travel</h2>
+      <div style="display:flex; gap:18px; flex-wrap:wrap; align-items:flex-start">
+        <div style="flex:1" class="card">
+          <h3>Why join?</h3>
+          <ul class="muted" style="margin-top:8px; line-height:1.6;">
+            <li>Earn extra money (₹50–₹70) every trip</li>
+            <li>No extra route — only carry small parcels</li>
+            <li>Verified handovers and instant payments</li>
+          </ul>
+          <div style="margin-top:12px">
+            <a class="btn btn-primary" id="joinNow" href="#" role="button">Join Traveller Group</a>
+          </div>
+        </div>
+
+        <div style="flex:1" class="card">
+          <h3>Quick signup</h3>
+          <div class="muted">Fill details and we will send you next-step instructions on WhatsApp.</div>
+
+          <div class="form" style="margin-top:12px">
+            <input id="tname" class="input" placeholder="Your name" />
+            <input id="tphone" class="input" placeholder="Phone Number" />
+            <select id="troute" class="input">
+              <option value="">Route (select)</option>
+              <option>Mysuru → Bengaluru</option>
+              <option>Bengaluru → Mysuru</option>
+              <option>Both</option>
+            </select>
+            <button id="tsubmit" class="btn btn-primary">Sign up via WhatsApp</button>
+          </div>
+          <div class="tiny">We verify travellers before onboarding for safety.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" style="margin-top:28px">
+      <h2>FAQ</h2>
+      <div style="display:grid; gap:10px; margin-top:12px">
+        <div class="card">
+          <strong>Q: Why use TagGoXpress instead of booking Speed Post myself?</strong>
+          <div class="muted" style="margin-top:6px">A: We pick up from your door, handle booking & paperwork, provide a single contact for tracking and offer same-day service that Speed Post cannot match for urgent items.</div>
+        </div>
+
+        <div class="card">
+          <strong>Q: What items can't be sent?</strong>
+          <div class="muted" style="margin-top:6px">A: Prohibited or hazardous items, perishables that require refrigeration, and high-value items without insurance. Contact us for clarifications.</div>
+        </div>
+
+        <div class="card">
+          <strong>Q: What if delivery fails?</strong>
+          <div class="muted" style="margin-top:6px">A: We have defined re-delivery rules and will contact sender/receiver to reschedule. Refunds depend on the chosen service and reason for failure.</div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>
+        <div style="font-weight:800">TagGoXpress</div>
+        <div class="muted" style="margin-top:6px">Mysuru ⇆ Bengaluru • Same-Day & Next-Day</div>
+      </div>
+
+      <div class="socials">
+        <a class="tiny" href="#" id="whatsappFooter">WhatsApp: +91 76193 28779</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    /* ========== Updated WhatsApp number for all links ========== */
+    const WHATSAPP_NUMBER = '+917619328779'; 
+
+    /* Pre-fill messages */
+    const bookMsg = encodeURIComponent("Hello TagGoXpress, I want to book a Same-day delivery from Mysuru to Bengaluru. Pickup address: [your address]. Item: [short description].");
+    const travellerMsg = encodeURIComponent("Hi, I want to join TagGoXpress traveller group. Name: [your name]. Route: Mysuru ↔ Bengaluru. Phone: [your phone].");
+
+    function whatsappLink(number, text){
+      // Use wa.me link for international format
+      // Remove '+' and spaces for the URL
+      return "https://wa.me/" + number.replace(/\+/g,'').replace(/\s/g, '') + "?text=" + text;
+    }
+
+    // Apply WhatsApp links to all CTAs
+    document.getElementById('bookNow').href = whatsappLink(WHATSAPP_NUMBER, bookMsg);
+    document.getElementById('whatsappTop').href = whatsappLink(WHATSAPP_NUMBER, bookMsg);
+    document.getElementById('whatsappFooter').href = whatsappLink(WHATSAPP_NUMBER, bookMsg);
+    document.getElementById('joinTraveller').href = whatsappLink(WHATSAPP_NUMBER, travellerMsg);
+
+    // traveller quick signup: validates fields and opens WA with message
+    document.getElementById('tsubmit').addEventListener('click', function(e){
+      e.preventDefault();
+      const name = document.getElementById('tname').value.trim();
+      const phone = document.getElementById('tphone').value.trim();
+      const route = document.getElementById('troute').value;
+      if(!name || !phone || !route){ alert('Please enter name, phone and route to sign up.'); return; }
+      const msg = encodeURIComponent("Traveller signup: Name: " + name + " | Phone: " + phone + " | Route: " + route);
+      window.open(whatsappLink(WHATSAPP_NUMBER, msg), '_blank');
+    });
+
+    // join group button (same as join traveller)
+    document.getElementById('joinNow').addEventListener('click', function(e){
+      e.preventDefault();
+      window.open(whatsappLink(WHATSAPP_NUMBER, travellerMsg), '_blank');
+    });
+  </script>
+</body>
+</html>
